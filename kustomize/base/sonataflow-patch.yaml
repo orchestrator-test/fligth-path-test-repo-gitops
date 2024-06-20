@@ -1,0 +1,29 @@
+apiVersion: sonataflow.org/v1alpha08
+kind: SonataFlow
+metadata:
+  name: flightpathtestrepo
+  annotations:
+    sonataflow.org/profile: prod
+  labels:
+    backstage.io/kubernetes-id: flightpathtestrepo
+spec:
+  persistence:
+    postgresql:
+      secretRef:
+        name:  sonataflow-psql-postgresql
+        userKey: postgres-username
+        passwordKey: postgres-password
+      serviceRef:
+        name: sonataflow-psql-postgresql
+        port: 5432
+        databaseName: sonataflow
+        databaseSchema: flightpathtestrepo
+  podTemplate:
+    container:
+      image: serverless-workflow-flightpathtestrepo
+      envFrom:
+      - configMapRef:
+          name: flightpathtestrepo-gitops
+      - secretRef:
+          name: flightpathtestrepo-secret
+      resources: {}

@@ -1,0 +1,18 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: flightpathtestrepo-gitops
+  description: A workflow for onboarding applications to OCP cluster
+  annotations:
+    argocd/app-name: flightpathtestrepo-gitops
+    backstage.io/kubernetes-label-selector: 'app=flightpathtestrepo,sonataflow.org/workflow-app=flightpathtestrepo'
+    backstage.io/kubernetes-namespace: sonataflow-infra
+    backstage.io/kubernetes-id: flightpathtestrepo
+    github.com/project-slug: orchestrator-test/fligth-path-test-repo-gitops
+spec:
+  type: workflow-project
+  system: system:default/janus-orchestrator
+  lifecycle: development
+  owner: user:guest
+  dependsOn:
+    - component:flightpathtestrepo
